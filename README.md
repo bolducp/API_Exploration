@@ -7,7 +7,7 @@ making my own api with node.js
 
 functionality for: add, subtract, multiply, divide, square
 
-localhost:4000/math/<operator type>/<num>/<num>/<num> etc.
+localhost:4000/math/ (operator type) / (num1) / (num2)/ (num3) etc.
 
 Example:
 localhost:4000/math/add/23/345/-29847
