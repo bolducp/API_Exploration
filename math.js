@@ -19,7 +19,7 @@ function multiply(numbers){
 
 function divide(numbers){
   return numbers.reduce(function(a, b) {
-    return parseInt(a) / parseInt(b);
+    return parseFloat(a) / parseFloat(b);
   });
 }
 

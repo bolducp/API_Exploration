@@ -11,16 +11,22 @@ var server = http.createServer(function(req, res) {
   var urlParts = req.url.match(/[^/]+/g);
 
   switch(urlParts[0]) {
-    case 'time':
-      var timestamp = Date.now();
-      res.end(timestamp + '\n');
-      break;
-
     case 'gravatar':
       var gravatarLink = "http://www.gravatar.com/avatar/" + md5(urlParts[1]);
       res.end(gravatarLink + '\n');
       break;
-
+    case 'sentence':
+      var encodedString = urlParts[1], decodedSentence = decodeURI(encodedString);
+      var numSpaces = encodedString.match(/%20/g).length;
+      var numWords = _.words(decodedSentence).length;
+      var numLetters = decodedSentence.replace(/[^A-Za-z]/g, "").length;
+      var sentenceStats = {
+        letters: numLetters,
+        spaces: numSpaces,
+        words: numWords,
+      };
+      res.end(JSON.stringify(sentenceStats) + '\n');
+      break;
     case 'math':
       var numbers = urlParts.slice(2);
       switch(urlParts[1]) {
@@ -48,10 +54,9 @@ var server = http.createServer(function(req, res) {
           break;
       }
       default:
-        res.end("nothing");
+        res.end("Error");
         break;
-  }
+      }
 });
-
 
 server.listen(4000);
